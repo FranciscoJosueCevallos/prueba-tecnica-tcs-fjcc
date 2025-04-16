@@ -1,0 +1,124 @@
+<div class="form-container">
+  <h2>Formulario de Registro</h2>
+  <form [formGroup]="productoForm" (ngSubmit)="onSubmit()">
+    <section class="form-section">
+      <div class="form-group">
+        <label for="id">ID</label>
+        <input id="id" type="text" formControlName="codigo" />
+        @if (
+          productoForm.get('codigo')?.invalid &&
+          productoForm.get('codigo')?.touched
+        ) {
+          <div class="error">
+            @if (productoForm.get('codigo')?.errors?.['required']) {
+              <small>Este campo es requerido!</small>
+            } @else if (productoForm.get('codigo')?.errors?.['uniqueId']) {
+              <small>El ID ya existe!</small>
+            } @else if (productoForm.get('codigo')?.errors?.['minlength']) {
+              <small>El ID debe tener al menos 3 caracteres!</small>
+            } @else if (productoForm.get('codigo')?.errors?.['maxlength']) {
+              <small>El ID no puede tener más de 10 caracteres!</small>
+            }
+          </div>
+        }
+      </div>
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" type="text" formControlName="nombre" />
+        @if (
+          productoForm.get('nombre')?.invalid &&
+          productoForm.get('nombre')?.touched
+        ) {
+          <div class="error">
+            @if (productoForm.get('nombre')?.errors?.['required']) {
+              <small>Este campo es requerido!</small>
+            } @else if (productoForm.get('nombre')?.errors?.['minlength']) {
+              <small>El nombre debe tener al menos 5 caracteres!</small>
+            } @else if (productoForm.get('nombre')?.errors?.['maxlength']) {
+              <small>El nombre no puede tener más de 100 caracteres!</small>
+            }
+          </div>
+        }
+      </div>
+    </section>
+    <section class="form-section">
+      <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        <input id="descripcion" formControlName="descripcion" />
+        @if (
+          productoForm.get('descripcion')?.invalid &&
+          productoForm.get('descripcion')?.touched
+        ) {
+          <div class="error">
+            @if (productoForm.get('descripcion')?.errors?.['required']) {
+              <small>Este campo es requerido!</small>
+            } @else if (
+              productoForm.get('descripcion')?.errors?.['minlength']
+            ) {
+              <small>La descripción debe tener al menos 10 caracteres!</small>
+            } @else if (
+              productoForm.get('descripcion')?.errors?.['maxlength']
+            ) {
+              <small
+                >La descripción no puede tener más de 200 caracteres!</small
+              >
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="logo">Logo</label>
+        <input id="logo" type="text" formControlName="logo" />
+        @if (
+          productoForm.get('logo')?.invalid && productoForm.get('logo')?.touched
+        ) {
+          <div class="error">
+            @if (productoForm.get('logo')?.errors?.['required']) {
+              <small>Este campo es requerido!</small>
+            }
+          </div>
+        }
+      </div>
+    </section>
+    <section class="form-section">
+      <div class="form-group">
+        <label for="fechaLiberacion">Fecha Liberación</label>
+        <input
+          id="fechaLiberacion"
+          type="date"
+          formControlName="fecha_creacion"
+        />
+        @if (
+          productoForm.get('fecha_creacion')?.invalid &&
+          productoForm.get('fecha_creacion')?.touched
+        ) {
+          <div class="error">
+            @if (productoForm.get('fecha_creacion')?.errors?.['required']) {
+              <small>Este campo es requerido!</small>
+            } @else if (
+              productoForm.get('fecha_creacion')?.errors?.['fechaInvalida']
+            ) {
+              <small
+                >La fecha de liberación no puede ser anterior a la fecha
+                actual!</small
+              >
+            }
+          </div>
+        }
+      </div>
+      <div class="form-group">
+        <label for="fechaRevision">Fecha Revisión</label>
+        <input
+          id="fechaRevision"
+          type="date"
+          formControlName="fecha_modificacion"
+        />
+      </div>
+    </section>
+    <div class="form-actions">
+      <button type="button" (click)="reiniciar()">Reiniciar</button>
+      <button type="submit" [disabled]="productoForm.invalid">Enviar</button>
+    </div>
+  </form>
+</div>
